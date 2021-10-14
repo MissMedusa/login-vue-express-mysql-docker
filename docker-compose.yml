@@ -1,0 +1,22 @@
+version: "3"
+services:
+ adatok:
+  image: mysql:latest
+  ports: 
+   - "3306:3306"
+  environment: 
+   - MYSQL_ROOT_PASSWORD=password
+  volumes: 
+   - /home/lexa/docker/mysql:/var/lib/mysql/
+ server:
+  image: server:latest
+  ports: 
+   - "8081:8081"
+  depends_on: 
+   - "adatok"
+ client:
+  image: client:latest
+  ports: 
+   - "8080:8080"
+  depends_on: 
+   - "server"
